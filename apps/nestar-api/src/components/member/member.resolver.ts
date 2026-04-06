@@ -19,7 +19,6 @@ export class MemberResolver {
             console.log("error, signup:", err);
             throw new InternalServerErrorException(err);
         }
-        
     }
 
     @Mutation(() => Member)
