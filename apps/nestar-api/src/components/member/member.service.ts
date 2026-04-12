@@ -52,7 +52,7 @@ private authService: AuthService
     }
 
     public async updateMember(): Promise<string> {
-            return 'updateMember executed!';
+ return 'updateMember executed!';
     }
 
     public async getMember(): Promise<string> {
