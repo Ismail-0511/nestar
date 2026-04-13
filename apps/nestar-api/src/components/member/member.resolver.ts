@@ -9,6 +9,7 @@ import { ObjectId } from 'mongoose';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { MemberType } from '../../libs/enums/member.enum';
 import { RolesGuard } from '../auth/guards/roles.guard';
+import { MemberUpdate } from '../../libs/dto/member/member.update';
 
 @Resolver()
 export class MemberResolver {
@@ -28,12 +29,16 @@ export class MemberResolver {
     }
 
     @UseGuards(AuthGuard)
-    @Mutation(() => String)
-    public async updateMember(@AuthMember('_id') memberId: ObjectId): Promise<string> {
-        console.log('Mutation: updateMember');
-        console.log(memberId);
-        return this.memberService.updateMember();
-    }
+  @Mutation(() => Member)
+  public async updateMember(
+    @Args('input') input: MemberUpdate,
+    @AuthMember('_id') memberId: ObjectId,
+  ): Promise<Member> {
+    console.log('Mutation: updateMember');
+    delete input._id;
+    return this.memberService.updateMember(memberId, input);
+  }
+
 
     @UseGuards(AuthGuard)
     @Query( () => String)
@@ -42,12 +47,12 @@ export class MemberResolver {
         return `hi ${memberNick}`
     }
 
-    @Roles(MemberType.ADMIN)
-    @UseGuards(AuthGuard)
+    @Roles(MemberType.ADMIN, MemberType.AGENT)
+    @UseGuards(RolesGuard)
     @Query( () => String)
-    public async checkAuthRoles(@AuthMember('memberNick') memberNick: string): Promise<string> {
+    public async checkAuthRoles(@AuthMember() authMember: Member): Promise<string> {
         console.log('Query: checkAuthRoles');
-        return `hi ${memberNick}`
+        return `hi ${authMember.memberNick}, you are ${authMember.memberType} (memberId: ${authMember._id})`
     }
 
     @Query( () => String)

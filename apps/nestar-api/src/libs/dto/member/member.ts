@@ -1,11 +1,11 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
-import * as mongoose from "mongoose";
-import { MemberAuthType, MemberStatus, MemberType } from "../../enums/member.enum";
+import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { ObjectId } from 'mongoose';
+import { MemberAuthType, MemberStatus, MemberType } from '../../enums/member.enum';
 
-@ObjectType()
+@ObjectType() 
 export class Member {
   @Field(() => String)
-  _id: mongoose.ObjectId;
+  _id: ObjectId;
 
   @Field(() => MemberType)
   memberType: MemberType;
@@ -22,13 +22,13 @@ export class Member {
   @Field(() => String)
   memberNick: string;
 
-  memberPassword?: string;
+  memberPassword?: string; 
 
   @Field(() => String, { nullable: true })
-  memberFullName?: string;
+  memberFullName?: string; 
 
   @Field(() => String)
-  memberImage?: string;
+  memberImage: string;
 
   @Field(() => String, { nullable: true })
   memberAddress?: string;
@@ -69,16 +69,15 @@ export class Member {
   @Field(() => Int)
   memberBlocks: number;
 
-  @Field(() => Date)
-  createdAt?: Date;
-
   @Field(() => Date, { nullable: true })
   deletedAt?: Date;
 
   @Field(() => Date)
-  updatedAt?: Date;
+  createdAt: Date;
 
-   @Field(() => String, { nullable: true })
+  @Field(() => Date)
+  updatedAt: Date;
+
+  @Field(() => String, { nullable: true })
   accessToken?: string;
-  
 }
