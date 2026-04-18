@@ -13,7 +13,7 @@ import { MemberModule } from '../member/member.module';
       {
         name: 'Property',
         schema: PropertySchema,
-      },
+      }, 
     ]),
     AuthModule,
     ViewModule,
