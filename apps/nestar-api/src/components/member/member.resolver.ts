@@ -130,7 +130,7 @@ const result = await new Promise((resolve, reject) => {
 		.on('finish', async () => resolve(true))
 		.on('error', () => reject(false));
 });
-if (!result) throw new InternalServerErrorException (Message.UPLOAD_FAILED);
+if (!result) throw new InternalServerErrorException(Message.UPLOAD_FAILED);
 
 return url;
 }
@@ -150,7 +150,7 @@ files: Promise<FileUpload>[],
 			const { filename, mimetype, encoding, createReadStream } = await img;
 
 			const validMime = validMimeTypes.includes(mimetype);
-			if (!validMime) throw new Error(Message.PROVIDE_ALLOWED_FORMAT);
+			if (!validMime) throw new BadRequestException(Message.PROVIDE_ALLOWED_FORMAT);
 
 			const imageName = getSerialForImage(filename);
 			const url = `uploads/${target}/${imageName}`;
@@ -162,7 +162,7 @@ files: Promise<FileUpload>[],
 				.on('finish', () => resolve(true))
 					.on('error', () => reject(false));
 			});
-			if (!result) throw new Error(Message.UPLOAD_FAILED);
+			if (!result) throw new InternalServerErrorException(Message.UPLOAD_FAILED);
 
 			uploadedImages[index] = url;
 		} catch (err) {
