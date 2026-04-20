@@ -5,8 +5,7 @@ import { BoardArticle, BoardArticles } from '../../libs/dto/board-article/board-
 import { MemberService } from '../member/member.service';
 import { ViewService } from '../view/view.service';
 import { AllBoardArticlesInquiry, BoardArticleInput, BoardArticlesInquiry } from '../../libs/dto/board-article/board-article.input';
-import { Message } from '../../libs/enums/common.enum';
-import { Direction } from '../../libs/enums/comment.enum';
+import { Direction, Message } from '../../libs/enums/common.enum';
 import { BoardArticleStatus } from '../../libs/enums/board-article.enum';
 import { ViewGroup } from '../../libs/enums/view.enum';
 import { BoardArticleUpdate } from '../../libs/dto/board-article/board-article.update';

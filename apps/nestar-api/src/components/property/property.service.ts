@@ -11,7 +11,7 @@ import { ViewGroup } from '../../libs/enums/view.enum';
 import { ViewService } from '../view/view.service';
 import { PropertyUpdate } from '../../libs/dto/property/property.update'
 import moment from 'moment';
-import { Direction } from '../../libs/enums/comment.enum';
+import { Direction } from '../../libs/enums/common.enum';
 import { lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
 
 @Injectable()

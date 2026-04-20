@@ -2,7 +2,7 @@ import { Field, InputType, Int } from '@nestjs/graphql';
 import { IsIn, IsNotEmpty, IsOptional, Length, Min } from 'class-validator';
 import { MemberAuthType, MemberStatus, MemberType } from '../../enums/member.enum';
 import { availableAgentSorts, availableMemberSorts } from '../../config';
-import { Direction } from '../../enums/comment.enum';
+import { Direction } from '../../enums/common.enum';
 import { text } from 'express';
 
 @InputType()
