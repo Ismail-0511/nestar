@@ -1,7 +1,6 @@
 import { ObjectId } from 'bson';
 export const availableAgentSorts = ["createdAt", "updatedAt", "memberLikes", "memberViews", "memberRank"]
 export const availableMemberSorts = ['createdAt', 'updatedAt', 'memberLikes', 'memberViews'];
-
 export const availableOptions = ['propertyBarter', 'propertyRent'];
 export const availablePropertySorts = [
   'createdAt',
@@ -11,13 +10,11 @@ export const availablePropertySorts = [
   'propertyRank',
   'propertyPrice',
 ];
-
 export const availableBoardArticleSorts = ['createdAt', 'updatedAt', 'memberLikes', 'memberViews'];
-
+export const availableCommentSorts = ['createdAt', 'updatedAt']
 /** IMAGE CONFIGURATION **/
 import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
-import { Args, Mutation } from '@nestjs/graphql';
 
 export const validMimeTypes = ['image/png', 'image/jpg', 'image/jpeg'];
 export const getSerialForImage = (filename: string) => {
