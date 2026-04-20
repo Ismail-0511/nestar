@@ -13,4 +13,7 @@ export enum CommentGroup {
 	ARTICLE = 'ARTICLE',
 	PROPERTY = 'PROPERTY',
 }
+registerEnumType(CommentGroup, {
+	name: 'CommentGroup',
+})
 
