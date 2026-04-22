@@ -200,7 +200,7 @@ export class PropertyService {
   public async likeTargetProperty(memberId: ObjectId, likeRefId: ObjectId): Promise<Property> {
     // 1. Target (likelanayotgan) foydalanuvchi mavjudligini va aktivligini tekshirish
     const target: Property = await this.propertyModel
-      .findOne({ _id: likeRefId, memberStatus: PropertyStatus.ACTIVE })
+      .findOne({ _id: likeRefId, propertyStatus: PropertyStatus.ACTIVE })
       .exec();
   
     if (!target) throw new InternalServerErrorException(Message.NO_DATA_FOUND);

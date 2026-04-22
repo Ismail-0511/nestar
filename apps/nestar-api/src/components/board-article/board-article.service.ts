@@ -11,6 +11,9 @@ import { ViewGroup } from '../../libs/enums/view.enum';
 import { BoardArticleUpdate } from '../../libs/dto/board-article/board-article.update';
 import { lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
 import { StatisticModifier, T } from '../../libs/types/common';
+import { LikeService } from '../like/like.service';
+import { LikeInput } from '../../libs/dto/like/like.input';
+import { LikeGroup } from '../../libs/enums/like.enum';
 
 @Injectable()
 export class BoardArticleService {
@@ -18,6 +21,7 @@ export class BoardArticleService {
     @InjectModel('BoardArticle') private readonly boardArticleModel: Model<BoardArticle>,
     private readonly memberService: MemberService,
     private readonly viewService: ViewService,
+    private likeService: LikeService,
   ) {}
 
   public async createBoardArticle(memberId: ObjectId, input: BoardArticleInput): 
@@ -118,6 +122,32 @@ public async getBoardArticles(memberId: ObjectId, input: BoardArticlesInquiry): 
   return result[0];
 }
 
+public async likeTargetBoardArticle(memberId: ObjectId, likeRefId: ObjectId): Promise<BoardArticle> {
+  // 1. Target (likelanayotgan) foydalanuvchi mavjudligini va aktivligini tekshirish
+  const target: BoardArticle = await this.boardArticleModel
+    .findOne({ _id: likeRefId, articleStatus: BoardArticleStatus.ACTIVE })
+    .exec();
+
+  if (!target) throw new InternalServerErrorException(Message.NO_DATA_FOUND);
+
+  const input: LikeInput = {
+    memberId: memberId,
+    likeRefId: likeRefId,
+    likeGroup: LikeGroup.ARTICLE,
+  };
+
+  // 2. Like toggle mantig'i va statistikani yangilash
+  const modifier: number = await this.likeService.toggleLike(input); 
+  const result = await this.boardArticleStatsEditor({ 
+    _id: likeRefId, 
+    targetKey: 'articleLikes', 
+    modifier: modifier 
+  });
+
+  if (!result) throw new InternalServerErrorException(Message.SOMETHING_WENT_WRONG);
+
+  return result;
+}
 
 public async getAllBoardArticlesByAdmin(input: AllBoardArticlesInquiry): Promise<BoardArticles> {
   const { articleStatus, articleCategory } = input.search;
