@@ -58,6 +58,11 @@ public async getBoardArticle(memberId: ObjectId, articleId: ObjectId): Promise<B
       await this.boardArticleStatsEditor({ _id: articleId, targetKey: 'articleViews', modifier: 1 });
       targetBoardArticle.articleViews++;
     }
+
+      //meLiked
+      const likeInput = { memberId: memberId, likeRefId: articleId, likeGroup: LikeGroup.ARTICLE };
+      targetBoardArticle.meLiked = await this.likeService.checkLikeExistence(likeInput);
+      //meFollowed
   }
 
   targetBoardArticle.memberData = await this.memberService.getMember(null, targetBoardArticle.memberId);

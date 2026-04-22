@@ -64,7 +64,10 @@ export class PropertyService {
         targetProperty.propertyViews++;
       }
 
-      // meLiked
+       //meLiked
+      const likeInput = { memberId: memberId, likeRefId: propertyId, likeGroup: LikeGroup.PROPERTY };
+      targetProperty.meLiked = await this.likeService.checkLikeExistence(likeInput);
+      //meFollowed
     }
 
     targetProperty.memberData = await this.memberService.getMember(null, targetProperty.memberId);
@@ -116,7 +119,6 @@ export class PropertyService {
             list: [
               { $skip: (input.page - 1) * input.limit },
               { $limit: input.limit },
-              // meLiked
               lookupMember,
               { $unwind: '$memberData' },
             ],
