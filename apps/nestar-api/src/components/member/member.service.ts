@@ -151,7 +151,6 @@ public async likeTargetMember(memberId: ObjectId, likeRefId: ObjectId): Promise<
   };
 
   // 2. Like toggle mantig'i va statistikani yangilash
-  // Bu yerda modifier: 1 bo'lsa like qo'shiladi, -1 bo'lsa olinadi (toggle)
   const modifier: number = await this.likeService.toggleLike(input); 
   const result = await this.memberStatsEditor({ 
     _id: likeRefId, 
