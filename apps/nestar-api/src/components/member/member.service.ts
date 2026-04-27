@@ -85,7 +85,6 @@ private likeService: LikeService,
     return result;
   }
 
-
     public async getMember(memberId: ObjectId, targetId: ObjectId): Promise<Member> {
     const search: T = {
       _id: targetId,

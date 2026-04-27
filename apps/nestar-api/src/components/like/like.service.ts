@@ -13,6 +13,7 @@ import { Properties } from '../../libs/dto/property/property';
 @Injectable()
 export class LikeService {
   constructor(@InjectModel('Like') private readonly likeModel: Model<Like>) {}
+
   public async toggleLike(input: LikeInput): Promise<number> {
     const search: T = {memberId: input.memberId, likeRefId: input.likeRefId},
     exist = await this.likeModel.findOne(search).exec();
@@ -23,7 +24,7 @@ export class LikeService {
         modifier = -1;
     } else {
         try {
-
+          await this.likeModel.create(input);  
         } catch(err: any) {
             console.log("ERROR, Service.model:", err.message);
             throw new BadRequestException(Message.CREATE_FAILED);
